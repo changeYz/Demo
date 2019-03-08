@@ -12,6 +12,7 @@ class Server
     const HOST='0.0.0.0';
     const PORT='8888';
     private $ws=null;
+    private $timer=null;
     public function __construct()
     {
 
@@ -23,8 +24,6 @@ class Server
             'worker_num'=>2,
             'task_worker_num'=>2,
         ]);
-
-
        $this->ws->on('open',[$this,'onOpen']);
        $this->ws->on('message',[$this,'onMessage']);
        $this->ws->on('task',[$this,'onTask']);
@@ -34,11 +33,15 @@ class Server
 
        $this->ws->on('close',[$this,'onClose']);
        $this->ws->start();
+
+
     }
 
 
     public function onOpen($ws,$request){
-
+        $this->timer=swoole_timer_tick(2000,function(){
+           echo '2000/c'.PHP_EOL;
+        });
         echo '已经开启';
     }
 
@@ -48,13 +51,18 @@ class Server
         fin:{$frame->finish}\n
         ";
 
+        swoole_timer_after(50000,function() use ($ws,$frame){
+            echo 'over timer'.PHP_EOL;
+            swoole_timer_clear($this->timer);
+        });
+
         //todo 10s
-        $data=[
-            'task'=>1,
-            'fd'=>$frame->fd,
-        ];
-        $ws->task($data);
-        $ws->push($frame->fd, "this is server".date('Y-m-d H:i:s'));
+//        $data=[
+//            'task'=>1,
+//            'fd'=>$frame->fd,
+//        ];
+//        $ws->task($data);
+//        $ws->push($frame->fd, "this is server".date('Y-m-d H:i:s'));
     }
 
 
