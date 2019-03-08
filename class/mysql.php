@@ -38,6 +38,7 @@ class AsyMysql
         use($arr,$type)
 
         {
+
             if($res===false){
                 var_dump('error');
             }
@@ -139,11 +140,11 @@ $arr=[
     'name'=>'nanf',
 ];
 
-foreach ($arr as $k=>$v){
-    $field[]=$v;
-    $keys[]=$k;
-}
-
+//foreach ($arr as $k=>$v){
+//    $field[]=$v;
+//    $keys[]=$k;
+//}
+//
 //echo $keys[1].'='.$field[1].'where'.($keys[0].'='.$field[0]);
 
 $obj->exce($arr,'update');

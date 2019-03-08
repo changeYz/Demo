@@ -12,6 +12,7 @@ $http = new swoole_http_server('0.0.0.0',8811);
 
 $http->set(
     [
+        'worker_num'=>4, //woreker_num 进程数 cpu 1-4
         'enable_static_handler'=>true,
         'document_root'=>"/home/nanf/work/demo/view",
     ]
