@@ -6,7 +6,7 @@
  * Time: 上午
  */
 
-class AsyMysql
+class Mysql
 {
     public $dbSource=null;
     public $table=null;
@@ -134,7 +134,7 @@ class AsyMysql
     }
 
 }
-$obj=new AsyMysql();
+$obj=new Mysql();
 $arr=[
     'id'=>1,
     'name'=>'nanf',
